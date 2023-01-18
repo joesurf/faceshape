@@ -10,61 +10,48 @@ from .buildModel import model_ft, criterion, optimizer_ft, exp_lr_scheduler
 
 device = 0 # CHANGE
 
-def train_model(model, criterion, optimizer, scheduler,
-                num_epochs=25):
-    since = time.time()
-    FT_losses = []
-    best_model_wts = copy.deepcopy(model.state_dict())
-    best_acc = 0.0
-    for epoch in range(num_epochs):
-        print('Epoch {}/{}'.format(epoch, num_epochs - 1))
-        print('-' * 10)
-    # Each epoch has a training and validation phase
-        for phase in ['train', 'val']:
-            if phase == 'train':
-                model.train()  # Set model to training mode
-            else:
-                model.eval()   # Set model to evaluate mode
-            running_loss = 0.0
-            running_corrects = 0
-            # Iterate over data.
-            for inputs, labels in dataloaders[phase]:
-                inputs = inputs.to(device)
-                labels = labels.to(device)
-                # zero the parameter gradients
-                optimizer.zero_grad()
-                # forward
-                # track history if only in train
-                with torch.set_grad_enabled(phase == 'train'):
-                    outputs = model(inputs)
-                    _, preds = torch.max(outputs, 1)
-                    loss = criterion(outputs, labels)
-                    # backward + optimize only if in training phase
-                    if phase == 'train':
-                        loss.backward()
-                        optimizer.step()
-                        scheduler.step()
-                
-                FT_losses.append(loss.item())
-                # statistics
-                running_loss += loss.item() * inputs.size(0)
-                running_corrects += torch.sum(preds == labels.data)
-            epoch_loss = running_loss / dataset_sizes[phase]
-            epoch_acc = running_corrects.double() / dataset_sizes[phase]
-            print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                phase, epoch_loss, epoch_acc))
-            # deep copy the model
-            if phase == 'val' and epoch_acc > best_acc:
-                best_acc = epoch_acc
-                best_model_wts = copy.deepcopy(model.state_dict())
-    time_elapsed = time.time() - since
-    print('Training complete in {:.0f}m {:.0f}s'.format(
-        time_elapsed // 60, time_elapsed % 60))
-    print('Best val Acc: {:4f}'.format(best_acc))
-    # load best model weights
-    model.load_state_dict(best_model_wts)
-    return model, FT_losses
-
+def train(model, train_loader, criterion, optimizer, device, epoch_no):
+    '''
+    Trains model on data using criterion and optimizer for one epoch
+    '''
+    logger.info(f"Epoch: {epoch_no} - Training Model on Complete Training Dataset" )
+    model.train()
+    running_loss = 0
+    running_corrects = 0
+    running_samples = 0
+    for inputs, labels in train_loader:
+        inputs = inputs.to(device)
+        labels = labels.to(device)
+        
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        pred = outputs.argmax(dim=1,  keepdim=True)
+        
+        running_loss += loss.item() * inputs.size(0) 
+        running_corrects += pred.eq(labels.view_as(pred)).sum().item()
+        running_samples += len(inputs) 
+        
+        loss.backward()
+        optimizer.step()
+        if running_samples % 500 == 0:
+            logger.info(
+                "\nTrain set:  [{}/{} ({:.0f}%)]\t Loss: {:.2f}\tAccuracy: {}/{} ({:.2f}%)".format(
+                    running_samples,
+                    len(train_loader.dataset),
+                    100.0 * (running_samples / len(train_loader.dataset)),
+                    loss.item(),
+                    running_corrects,
+                    running_samples,
+                    100.0*(running_corrects/ running_samples)
+                )
+            )
+    total_loss = running_loss / len(train_loader.dataset)
+    total_acc = running_corrects/ len(train_loader.dataset)
+    logger.info( "\nTrain set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n".format(
+        total_loss, running_corrects, len(train_loader.dataset), 100.0 * total_acc
+    ))   
+    return model
 
 
 model, FT_losses = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=200)

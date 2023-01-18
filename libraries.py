@@ -18,6 +18,5 @@ from skimage import io, transform
 from tqdm import trange, tqdm
 import csv
 import glob
-import dlib
 import pandas as pd
 import numpy as np
