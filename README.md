@@ -14,6 +14,10 @@ This project uses facial recognition to identify the face shape of users - heart
 1. conda create --name <env> --file requirements.txt
 2. run the main.py file
 
+### Backend with PeekingDuck
+1. Run peekingduck init to start peekingduck
+2. Run peekingduck run to run peedkingduck pipeline
+
 
 ## Usage
 Upload a photo to the webpage and receive a classification result of what face shape the user has.

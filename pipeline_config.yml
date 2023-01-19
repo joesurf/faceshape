@@ -1,19 +1,14 @@
 nodes:
-- input.visual #for both live or recorded input
-- augment.brightness #Adjust the brightness of image
-    beta: 50 #brightness +50, [-100, 100]
-- augment.contrast #Adjust the contrast of an image
-    alpha: 1.0 #contrast of image [0.0, 3.0]
-- model.mtcnn #placeholder model for face detection if we are not using custom built model
-    score_threshold: 0.9 #scores less than threshold are discard [0,1]
-- dabble.fps #calculate the fps of video
-- draw.bbox #draw bounding boxes over detected objects
-    show_labels: True
-- draw.legend #display selected information over preceding nodes in a legend box
-- output.screen #shows the output on your display
-
-#- output.csv_writer #Records the nodes' outputs to a CSV file
-#- output.media_writer #Writes the output image/video to file
-
-## refer to images sample_pd_pipeline.png if required
-# ref - https://peekingduck.readthedocs.io/en/stable/index.html
+- input.visual:
+    source: 0
+- model.mtcnn:
+    score_threshold: 0.9
+- augment.brightness:
+    beta: 50
+- augment.contrast:
+    alpha: 1.0
+- dabble.fps
+- draw.bbox
+- draw.legend:
+    show: ['fps']
+- output.screen
