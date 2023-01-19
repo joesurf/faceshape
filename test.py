@@ -18,7 +18,7 @@ def test(model, test_loader, criterion, device, epoch_no):
     running_loss=0
     running_corrects=0
     
-    with torch.no_grad(): # No gradient calculation while testing
+    with torch.no_grad(): # No gradient calculation while testing 
         for inputs, labels in test_loader:
             inputs=inputs.to(device)
             labels=labels.to(device)
