@@ -1,6 +1,14 @@
 nodes:
 - input.visual:
-    source: https://storage.googleapis.com/peekingduck/videos/wave.mp4
-- model.posenet
-- draw.poses
+    source: 0
+#- custom model node
+- augment.brightness:
+    beta: 50
+- augment.contrast:
+    alpha: 1.0
+- dabble.fps
+- draw.bbox
+- draw.legend:
+    show: ['fps']
 - output.screen
+- output.csv_writer
