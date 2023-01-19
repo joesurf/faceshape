@@ -40,7 +40,7 @@ def main(args):
     logger.info(f"Hyperparameters : LR: {args.lr},  Eps: {args.eps}, Weight-decay: {args.weight_decay}, Batch Size: {args.batch_size}, Epoch: {args.epochs}")
     # logger.info(f"Data Dir Path: {args.data_dir}")
     # logger.info(f"Model Dir  Path: {args.model_dir}")
-    # logger.info(f"Output Dir  Path: {args.output_dir}")
+    # logger.info(f"Output Dir  Path: {args.output_dir}") 
     
     model=buildModel()
     model = model.to(device)
