@@ -2,13 +2,16 @@ import time
 import copy
 import torch
 import matplotlib.pyplot as plt
+import logging
+import sys
 
-
-from .dataloader import dataloaders, dataset_sizes
-from .buildModel import model_ft, criterion, optimizer_ft, exp_lr_scheduler
 
 
 device = 0 # CHANGE
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler(sys.stdout))
+
 
 def train(model, train_loader, criterion, optimizer, device, epoch_no):
     '''
@@ -54,13 +57,13 @@ def train(model, train_loader, criterion, optimizer, device, epoch_no):
     return model
 
 
-model, FT_losses = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=200)
-plt.figure(figsize=(10,5))
-plt.title("FRT Loss During Training")
-plt.plot(FT_losses, label="FT loss")
-plt.xlabel("iterations")
-plt.ylabel("Loss")
-plt.legend()
-plt.show()
+# model, FT_losses = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=200)
+# plt.figure(figsize=(10,5))
+# plt.title("FRT Loss During Training")
+# plt.plot(FT_losses, label="FT loss")
+# plt.xlabel("iterations")
+# plt.ylabel("Loss")
+# plt.legend()
+# plt.show()
 
-torch.save(model, "/model.pt")
+# torch.save(model, "/model.pt")
