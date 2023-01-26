@@ -15,12 +15,14 @@ def createDataloaders(data, batch_size):
     
     training_transform = transforms.Compose([
         transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomRotation(180),
         transforms.Resize(256),
         transforms.RandomResizedCrop((224, 224)),
         transforms.ToTensor() 
     ])
     testing_transform = transforms.Compose([
         transforms.Resize(256),
+        transforms.RandomRotation(180),
         transforms.RandomResizedCrop((224, 224)),
         transforms.ToTensor()
     ])

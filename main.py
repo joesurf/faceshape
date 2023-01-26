@@ -15,10 +15,10 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
-from .buildModel import buildModel
-from .dataloader import createDataloaders
-from .train import train
-from .test import test
+from buildModel import buildModel
+from dataloader import createDataloaders
+from train import train
+from test import test
 
 
 
@@ -31,9 +31,9 @@ logger.addHandler(logging.StreamHandler(sys.stdout))
 def main(args):
 
     path = os.getcwd()
-    args.data_dir = path + "/faceshape/FaceShapeDataset"
-    args.model_dir = path + "/faceshape/models"
-    args.output_dir = path + "/faceshape/output"
+    args.data_dir = path + "\\"
+    args.model_dir = path + "/models"
+    args.output_dir = path + "/output"
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     logger.info(f"Running on Device {device}")
