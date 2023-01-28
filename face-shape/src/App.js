@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+
 import './App.css';
 import Result from './components/Result';
 
 function App() {
-  var faceShape = "heart";
-  var recommendation = {'triangle': ['rectangle', 'browline', 'oval', 'aviators', 'geometric', 'wrap'],
-                  'heart' : ['rectangle', 'aviators', 'geometric', 'wrap'],
-                  'diamond' : ['oval', 'aviators', 'round', 'wrap'],
-                  'round' : ['rectangle', 'square', 'aviators', 'wrap'],
-                  'oblong' : ['classic wayframe', 'browline', 'oval', 'aviators', 'round', 'geometric', 'wrap'],
-                  'oval' : ['rectangle', 'square', 'classic wayframe', 'browline', 'aviators', 'geometric', 'wrap'],
-                  'square' : ['classic wayframe', 'browline', 'oval', 'aviators', 'round', 'wrap']
-                  }
-  const specs = recommendation[faceShape];
-  const list = [];
+  const [specs, setSpecs] = useState([])
+
+  useEffect(() => {
+    fetch("/results").then(
+      res => res.json()
+    ).then(
+      specs => {
+        setSpecs(specs)
+        console.log(specs)
+      }
+    )
+  })
+
+  const list = []
 
   specs.forEach((spec) => {
     list.push(<Result type={spec}></Result>)
   })
+
+  var faceShape = "FIND FACESHAPE FUNCTION"
+
   return (
     <div className="App">
       <header className="App-header">
