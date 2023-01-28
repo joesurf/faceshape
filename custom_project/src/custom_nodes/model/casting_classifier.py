@@ -31,13 +31,13 @@ class Node(AbstractNode):
         """This node does Reads the image input and returns the predicted class label and confidence score.
 
         Args:
-            inputs (dict): Dictionary with keys "img".
+            inputs (dict): Dictionary with keys "bboxes".
 
         Returns:
             outputs (dict): Dictionary with keys "pred_label" and "pred_Score".
         """
-
-        img = cv2.cvtColor(inputs["img"], cv2.COLOR_BGR2RGB)
+        #Regular pre-processing of images
+        img = cv2.cvtColor(inputs["bboxes"], cv2.COLOR_BGR2RGB)
         img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
         img = np.expand_dims(img, axis=0)
         
