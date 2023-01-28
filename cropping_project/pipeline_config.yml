@@ -1,0 +1,10 @@
+nodes:
+- input.visual:
+    source: images
+- model.mtcnn
+- draw.bbox
+- custom_nodes.output.cropped
+- output.csv_writer:
+    stats_to_track: ['filename', 'top', 'left', 'right', 'bottom']
+    file_path: 'output.csv'
+    logging_interval: 0

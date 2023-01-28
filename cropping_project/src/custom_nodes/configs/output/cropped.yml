@@ -1,0 +1,11 @@
+# Mandatory configs
+# Receive img and bboxes
+# img - np.darray
+# bboxes - np.darray
+# be found at https://peekingduck.readthedocs.io/en/stable/glossary.html.
+input: ["img", "bboxes", "filename"]
+
+# Example:
+# Output a cropped img
+output: ['top', 'left', 'right', 'bottom']
+
