@@ -8,7 +8,7 @@ Server: Flask (python)
 
 In the flask-server diectory, you can run:
 
-### `python server.py'
+### `python server.py`
 
 Starts the server
 
