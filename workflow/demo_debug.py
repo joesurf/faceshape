@@ -9,6 +9,7 @@ from src.custom_run.dabble import debug
 from src.custom_nodes.model import casting_classifier
 from getImageS3 import image_from_s3
 from readCsv import getResult
+from checkImageData import checkImageIntegrity
 import asyncio
 import time
 
@@ -16,6 +17,11 @@ import time
 async def pipeline():
     image = image_from_s3("peekingduck", "heart.jpg")
     image.save("heart.jpg")
+
+    try:
+        checkImageIntegrity("./", "heart.jpg")
+    except Exception as e:
+        print("Image corrupted")
 
     debug_node = debug.Node(pkd_base_dir=Path.cwd() / "src" / "custom_run")
     # visual_node = visual.Node(source=image) 
@@ -67,6 +73,8 @@ async def main():
     result = getResult()
     if result:
         prediction = result[2]
+
+    print(prediction)
     return prediction
 
 
