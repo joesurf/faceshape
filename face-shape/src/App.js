@@ -12,7 +12,7 @@ function App() {
     // console.log(e.target.files[0])
 
     const target = { Bucket:"face-shape", Key:file.name, Body:file};
-    const creds = {accessKeyId: "AKIAQK6P4H6OZJOKIO4C",secretAccessKey:"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"};
+    const creds = {accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY};
     try {
       const parallelUploads3 = new Upload({
         client: new S3Client({region:"ap-southeast-1",credentials:creds}),
