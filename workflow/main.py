@@ -15,18 +15,18 @@ import time
 
 
 async def pipeline():
-    image = image_from_s3("peekingduck", "heart.jpg")
-    image.save("heart.jpg")
+    image = image_from_s3("face-shape", "cat.jpg")
+    image.save("cat.jpg")
 
     try:
-        checkImageIntegrity("./", "heart.jpg")
+        checkImageIntegrity("./", "cat.jpg")
     except Exception as e:
         print("Image corrupted")
 
     debug_node = debug.Node(pkd_base_dir=Path.cwd() / "src" / "custom_run")
     # visual_node = visual.Node(source=image) 
 
-    visual_node = visual.Node(source=str(Path.cwd() / "heart.jpg")) 
+    visual_node = visual.Node(source=str(Path.cwd() / "cat.jpg")) 
     yolo_node = yolo.Node(detect=["cup", "cat", "laptop", "keyboard", "mouse"]) 
     bbox_node = bbox.Node(show_labels=True)
     fps_node = fps.Node()

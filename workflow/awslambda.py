@@ -24,3 +24,7 @@ async def lambda_handler(event, context):
         'body': json.dumps(prediction)
     }
 
+asyncio.run(lambda_handler("event", "context"))
+
+
+# scp -r -i /Users/joesurf/Downloads/faceshape.pem ~/Documents/Software/AISG/faceshape/workflow/Archive.zip ec2-user@ec2-54-146-149-217.compute-1.amazonaws.com:~
