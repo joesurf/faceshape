@@ -3,8 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import { Upload } from "@aws-sdk/lib-storage";
 import { S3Client, S3 } from "@aws-sdk/client-s3";
-import ImageUploader from 'react-images-upload';
-
 
 
 function App() {
