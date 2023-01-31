@@ -63,19 +63,19 @@ async def pipeline():
     runner.run()
 
 
-async def main():
-    await pipeline()
-    # time.sleep()
+# async def main():
+#     await pipeline()
+#     # time.sleep()
 
-    prediction = ""
+#     prediction = ""
 
-    # Read lastest casting predictions csv file
-    result = getResult()
-    if result:
-        prediction = result[2]
+#     # Read lastest casting predictions csv file
+#     result = getResult()
+#     if result:
+#         prediction = result[2]
 
-    print(prediction)
-    return prediction
+#     print(prediction)
+#     return prediction
 
 
-if __name__ == "__main__": asyncio.run(main())
+# if __name__ == "__main__": asyncio.run(main())
