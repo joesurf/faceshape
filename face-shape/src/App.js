@@ -1,89 +1,42 @@
-import React, { useState } from 'react';
-import ImageUploader from 'react-images-upload';
-import Axios from 'axios';
-
+import React, {useState} from 'react';
+import logo from './logo.svg';
 import './App.css';
+import { Upload } from "@aws-sdk/lib-storage";
+import { S3Client, S3 } from "@aws-sdk/client-s3";
 
-const UploadComponent = props => (
-    <form>
-        <label>
-            Server to upload pictures URL:
-            <input id="urlInput" type="text" onChange={props.onUrlChange} value={props.url}></input>
-        </label>
-        <ImageUploader
-            key="image-uploader"
-            withIcon={true}
-            singleImage={true}
-            withPreview={true}
-            label="Maximum size file: 5MB"
-            buttonText="Choose an image"
-            onChange={props.onImage}
-            imgExtension={['.jpg', '.png', '.jpeg']}
-            maxFileSize={5242880}
-        ></ImageUploader>
-    </form>
-);
 
-const App = () => {
-    const [progress, setProgress] = useState('getUpload');
-    const [url, setImageURL] = useState(undefined);
-    const [errorMessage, setErrorMessage] = useState('');
+function App() {
+  const [file,setFile] = useState();
+  function fileChange(e){
+    var file = e.target.files[0];
+    // console.log(e.target.files[0])
 
-    const onUrlChange = e => {
-        setImageURL(e.target.value);
-    };
+    const target = { Bucket:"face-shape", Key:file.name, Body:file};
+    const creds = {accessKeyId: "AKIAQK6P4H6OZJOKIO4C",secretAccessKey:"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"};
+    try {
+      const parallelUploads3 = new Upload({
+        client: new S3Client({region:"ap-southeast-1",credentials:creds}),
+        leavePartsOnError: false, // optional manually handle dropped parts
+        params: target,
+      });
 
-    const onImage = async (failedImages, successImages) => {
-        if (!url) {
-            console.log('missing Url');
-            setErrorMessage('missing a url to upload to');
-            setProgress('uploadError');
-            return;
-        }
+      parallelUploads3.on("httpUploadProgress", (progress) => {
+        console.log(progress);
+      });
 
-        setProgress('uploading');
+      parallelUploads3.done();
+    } catch (e) {
+      console.log(e);
+    }
 
-        try {
-            console.log('successImages', successImages);
-            const parts = successImages[0].split(';');
-            const mime = parts[0].split(':')[1];
-            const name = parts[1].split('=')[1];
-            const data = parts[2];
-            const res = await Axios.post(url, { mime, name, image: data });
-
-            setImageURL(res.data.imageURL);
-            setProgress('uploaded');
-        } catch (error) {
-            console.log('error in upload', error);
-            setErrorMessage(error.message);
-            setProgress('uploadError');
-        }
-    };
-
-    const content = () => {
-        switch (progress) {
-            case 'getUpload':
-                return <UploadComponent onUrlChange={onUrlChange} onImage={onImage} url={url} />;
-            case 'uploading':
-                return <h2>Uploading....</h2>;
-            case 'uploaded':
-                return <img src={url} alt="uploaded" />;
-            case 'uploadError':
-                return (
-                    <>
-                        <div>Error message = {errorMessage}</div>
-                        <UploadComponent onUrlChange={onUrlChange} onImage={onImage} url={url} />
-                    </>
-                );
-        }
-    };
-
-    return (
-        <div className="App">
-            <h1>Face Shape </h1>
-            {content()}
-        </div>
-    );
-};
+  }
+  return (
+    
+    <div style={{ textAlign: 'center' }}>
+        <label>Upload a picture of your face here:</label><br></br>
+      <input type="file" accept="image/jpeg,image/png " id="file" onChange={fileChange}/>  
+    </div>
+  );
+}
 
 export default App;
