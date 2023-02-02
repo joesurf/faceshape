@@ -1,2 +1,8 @@
 FaceShapeDataset
 face-shape/.env
+env
+models/
+train/
+validation/
+custom_project/weights/variables/
+workflow/weights/variables/

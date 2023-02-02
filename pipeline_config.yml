@@ -1,0 +1,14 @@
+nodes:
+- input.visual:
+    source: 0
+- model.mtcnn:
+    score_threshold: 0.9
+- augment.brightness:
+    beta: 50
+- augment.contrast:
+    alpha: 1.0
+- dabble.fps
+- draw.bbox
+- draw.legend:
+    show: ['fps']
+- output.screen

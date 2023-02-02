@@ -1,4 +1,27 @@
-# faceshape
+# Faceshape Detection for Spectacle Recommendation
+
+This project uses facial recognition to identify the face shape of users - heart, oblong, oval, round and square. The face shape is then used to determine the right fit of spectacles, as shown below.
+
+[Recommendation of glasses based on face shape]("./images/glass_frame_recommendation.jpg")
+
+
+## Setup
+### Frontend
+1. Run npm i to install modules
+2. Run npm start
+
+### Backend
+1. conda create --name <env> --file requirements.txt
+2. run the main.py file
+
+### Backend with PeekingDuck
+1. Run peekingduck init to start peekingduck
+2. Run peekingduck run to run peedkingduck pipeline
+
+
+## Usage
+Upload a photo to the webpage and receive a classification result of what face shape the user has.
+
 
 ## Features
 - Take photo to upload
@@ -12,12 +35,6 @@
 Bonus:
 Recommend color
 
-**Objective**
-- Website (Host on AWS)
-- Frontend - React (npm)
-- Backend - Python, Pytorch
-
-<<<<<<< HEAD
 
 ### Training Phase
 1. Load data from dataset
@@ -33,6 +50,9 @@ Recommend color
 4. Inference used to recommend glass
 5. Display glasses
 
-=======
->>>>>>> 63e7b79257f3a2c4ef99afe7735a115a315132a2
  
+
+**Tech Stack**
+- Website (Host on AWS)
+- Frontend - React (npm)
+- Backend - Python, Pytorch
