@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Result from './components/Result.js';
 import { Upload } from "@aws-sdk/lib-storage";
-import { S3Client, S3 } from "@aws-sdk/client-s3";
+import { S3Client } from "@aws-sdk/client-s3";
 
 
 function App() {
@@ -30,13 +30,45 @@ function App() {
     }
 
   }
+
+  // const [specs, setSpecs] = useState([])
+
+  const specs = ['rectangle', 'browline', 'oval', 'aviators', 'geometric', 'wrap']
+
+  // useEffect(() => {
+  //   fetch("/results").then(
+  //     res => res.json()
+  //   ).then(
+  //     specs => {
+  //       setSpecs(specs)
+  //       console.log(specs)
+  //     }
+  //   )
+  // })
+
+  const list = []
+
+  specs.forEach((spec) => {
+    list.push(<Result type={spec}></Result>)
+  })
+
+  var faceShape = "FIND FACESHAPE FUNCTION"
   return (
     
     <div style={{ textAlign: 'center' }}>
         <label>Upload a picture of your face here:</label><br></br>
-      <input type="file" accept="image/jpeg,image/png " id="file" onChange={fileChange}/>  
-    </div>
-  );
-}
+      <input type="file" accept="image/jpeg,image/png " id="file" onChange={fileChange}/> 
 
+
+      <header className="App-header">
+        <p>
+          Your face shape is {faceShape}.
+          <br /> The frames recommended for your face shape are...
+          {list}
+        </p>
+      </header>
+    </div>
+    );
+}
 export default App;
+

@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Start The Server First
+
+Server: Flask (python)
+
+In the flask-server diectory, you can run:
+
+### `python server.py`
+
+Starts the server
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -18,7 +18,8 @@ def getRecommendation(face_shape):
     print('Face shape is: ' + face_shape)
     recommendation_list = recommendation[face_shape]
     print('Recommended glasses frame is:')
-    for item in recommendation_list:
-        print(item)
+    return recommendation_list
+#    for item in recommendation_list:
+#        print(item)
         
-getRecommendation('oval')
+# getRecommendation('oval')
