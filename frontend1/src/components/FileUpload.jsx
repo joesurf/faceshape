@@ -80,14 +80,14 @@ const FileUpload = () => {
             setResult("Soften the edges of a square face with earrings that are medium to long with rounded edges. Oval shapes are a great go-to.");
         } else if (prediction == "oblong") {
             setResult("For a rectangular face, choose earrings that emphasise the width of your face. Studs, clustered earrings, short danglers, and hopps in medium to large size are a good fit for you.");
-        } else {
-            setResult("I'm sorry, we can't find any earrings for you");
+        // } else {
+        //     setResult("I'm sorry, we can't find any earrings for you");
         }
     }
 
     useEffect(() => {
         getEarringsFromFaceShape()
-    }, [prediction, result]);
+    }, [prediction]);
 
     return (
         <div className="w-[100%] h-[100%] relative z-[5]">

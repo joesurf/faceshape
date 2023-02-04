@@ -1,7 +1,5 @@
 import styles from "../style";
-import { discount, robot, faceshape } from "../assets";
-import GetStarted from "./GetStarted";
-import FileUpload from "./FileUpload"
+import { earrings } from "../assets";
 
 const Hero = () => {
   return (
@@ -34,7 +32,7 @@ const Hero = () => {
       </div>
 
       <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
-        <img src={faceshape} alt="billing" className="w-[100%] h-[100%] relative z-[5]" />
+        <img src={earrings} alt="billing" className="w-[100%] h-[100%] relative z-[5]" />
         {/* <FileUpload className="w-[100%] h-[100%] relative z-[5]"></FileUpload> */}
 
         {/* gradient start */}
