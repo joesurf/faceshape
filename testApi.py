@@ -2,7 +2,7 @@ import requests
 import cv2
 
 
-file = 'oval.jpg'
+file = 'josh.jpg'
 
 url = f'http://localhost:8000/infer/{file}'
 myobj = {'somekey': 'somevalue'}

@@ -37,13 +37,22 @@ const FileUpload = () => {
                 }
                 reader.readAsDataURL(file);
 
-                download(file)
+                predict(file)
 
 
-                // var imgFile = new File(file, {type: "image/png"});
                 // FileSaver.saveAs(imgFile, "/Users/joesurf/Downloads");
             }
         });
+    }
+
+    const predict = (file) => {
+        console.log(file.name)
+        const requestOptions = {
+            method: 'POST',
+        };
+        fetch(`http://localhost:8000/infer/${file.name}`, requestOptions)
+            .then(response => response.json())
+            // .then(data => this.setState({ postId: data.id }));
     }
 
     const download = (image) => {

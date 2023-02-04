@@ -10,8 +10,8 @@ import tensorflow as tf
 
 from peekingduck.pipeline.nodes.abstract_node import AbstractNode
 
-IMG_WIDTH = 180
-IMG_HEIGHT = 180
+IMG_WIDTH = 224
+IMG_HEIGHT = 224
 
 class Node(AbstractNode):
     """This is a template class of how to write a node for PeekingDuck.

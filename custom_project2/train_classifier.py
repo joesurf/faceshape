@@ -19,8 +19,8 @@ WEIGHTS_DIR = "./weights"
 RESULTS = "training_results.png"
 EPOCHS = 10
 BATCH_SIZE = 32
-IMG_HEIGHT = 224
-IMG_WIDTH = 224
+IMG_HEIGHT = 180
+IMG_WIDTH = 180
 
 
 def prepare_data() -> Tuple[tf.data.Dataset, tf.data.Dataset, List[str]]:
