@@ -12,31 +12,42 @@ from readCsv import getResult
 from checkImageData import checkImageIntegrity
 import asyncio
 import time
+import cv2
+from PIL import Image
 
 
-async def pipeline():
-    image = image_from_s3("peekingduck", "heart.jpg")
-    image.save("heart.jpg")
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def hello():
+    return {"message": "Hello World"}
+
+
+@app.post("/infer/{file}")
+async def infer(file):
+    print(file)
+    prediction = await run(file)
+    return {"prediction": prediction}
+
+
+async def pipeline(file):
+    image = Image.open(file)
+    image.save("random.jpg")
+
 
     try:
-        checkImageIntegrity("./", "heart.jpg")
+        checkImageIntegrity("./", "random.jpg")
     except Exception as e:
         print("Image corrupted")
 
     debug_node = debug.Node(pkd_base_dir=Path.cwd() / "src" / "custom_run")
-    # visual_node = visual.Node(source=image) 
+    visual_node = visual.Node(source='random.jpg') 
 
-    visual_node = visual.Node(source=str(Path.cwd() / "heart.jpg")) 
-    yolo_node = yolo.Node(detect=["cup", "cat", "laptop", "keyboard", "mouse"]) 
-    bbox_node = bbox.Node(show_labels=True)
-    fps_node = fps.Node()
-    legend_node = legend.Node(show=["fps"])
+    # visual_node = visual.Node(source=str(Path.cwd() / "heart.jpg")) 
     screen_node = screen.Node()
-
-    # output_location = "https://peekingduck.s3.amazonaws.com/results/"
-    # media_writer_node = media_writer.Node(output_dir=output_location)
-
-    #media_writer_node = media_writer.Node(output_dir=str(Path.cwd() / "results"))
     csv_writer_node = csv_writer.Node(   
         stats_to_track=["filename", "pred_label", "pred_score"],
         file_path="casting_predictions.csv",
@@ -63,8 +74,8 @@ async def pipeline():
     runner.run()
 
 
-async def main():
-    await pipeline()
+async def run(file):
+    await pipeline(file)
     # time.sleep()
 
     prediction = ""
@@ -78,4 +89,4 @@ async def main():
     return prediction
 
 
-if __name__ == "__main__": asyncio.run(main())
+# if __name__ == "__main__": asyncio.run(main())

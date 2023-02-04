@@ -1,5 +1,6 @@
 import "./FileUpload.css";
 import React, { useState } from 'react';
+import { saveAs } from 'file-saver';
 
 
 const FileUpload = () => {
@@ -34,18 +35,29 @@ const FileUpload = () => {
                     img.src = result;
                     wrapper.classList.add("active");
                 }
-                cancelBtn.addEventListener("click", function(){
-                    img.src = "";
-                    wrapper.classList.remove("active");
-                })
                 reader.readAsDataURL(file);
-            }
-            if(this.value){
-                let valueStore = this.value.match(regExp);
-                fileName.textContent = valueStore;
+
+                download(file)
+
+
+                // var imgFile = new File(file, {type: "image/png"});
+                // FileSaver.saveAs(imgFile, "/Users/joesurf/Downloads");
             }
         });
     }
+
+    const download = (image) => {
+        var element = document.createElement("a");
+        var file = new Blob(
+          [
+            image
+          ],
+          { type: "image/*" }
+        );
+        element.href = URL.createObjectURL(file);
+        element.download = "image.jpg";
+        element.click();
+      };
 
     return (
         <div className="w-[100%] h-[100%] relative z-[5]">
