@@ -1,5 +1,5 @@
 import "./FileUpload.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
@@ -7,7 +7,8 @@ const FileUpload = () => {
     const [status, setStatus] = useState(false);
     const [file, setFile] = useState();
     const [upload, setUpload] = useState(false);
-    const [prediction, setPrediction] = useState("")
+    const [prediction, setPrediction] = useState("");
+    const [result, setResult] = useState("Finding the perfect pair of earrings for you...");
 
     
     const wrapper = document.querySelector(".wrapper");
@@ -58,7 +59,6 @@ const FileUpload = () => {
             console.log("Request successful!");
             console.log(response.data)
             setPrediction(response.data["prediction"])
-
           } catch (error) {
             if (error.response) {
               console.log(error.reponse.status);
@@ -68,24 +68,45 @@ const FileUpload = () => {
         }
     }
 
+    const getEarringsFromFaceShape = () => {
+        // Reference: https://blingvine.com/blogs/online-jewellery-blog/how-to-choose-the-best-earrings-for-you-face-shape
+        if (prediction == "round") {
+            setResult("A round face is complemented by long drop or dangle earrings. This design will elongate your face and make it look slimmer.")
+        } else if (prediction == "heart") {
+            setResult("For a heart shaped face, find a desert that is wider at the bottom than the top.")
+        } else if (prediction == "oval") {
+            setResult("Oval shaped faces are the luckiest of all, as any shape of earrings will work for you. Choose from any style.");
+        } else if (prediction == "square") {
+            setResult("Soften the edges of a square face with earrings that are medium to long with rounded edges. Oval shapes are a great go-to.");
+        } else if (prediction == "oblong") {
+            setResult("For a rectangular face, choose earrings that emphasise the width of your face. Studs, clustered earrings, short danglers, and hopps in medium to large size are a good fit for you.");
+        } else {
+            setResult("I'm sorry, we can't find any earrings for you");
+        }
+    }
+
+    useEffect(() => {
+        getEarringsFromFaceShape()
+    }, [prediction, result]);
 
     return (
         <div className="w-[100%] h-[100%] relative z-[5]">
             <div className="container">
-                { !file && 
-                <div className="wrapper">
-                    <div className="image">
-                        <img src={file} alt="" />
-                    </div>
-                    <div className="content">
-                        <div className="icon">
-                            <i className="fas fa-cloud-upload-alt"></i>
+                { 
+                    !file && 
+                    <div className="wrapper">
+                        <div className="image">
+                            <img src={file} alt="" />
                         </div>
-                        <div className="text">
-                            No file chosen, yet!
+                        <div className="content">
+                            <div className="icon">
+                                <i className="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div className="text">
+                                No file chosen, yet!
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
                 {
                     upload && 
@@ -98,8 +119,9 @@ const FileUpload = () => {
                                 <i className="fas fa-cloud-upload-alt"></i>
                             </div>
                             <div className="text">
-                                { prediction } faceshape detected!
-                                Finding earrings for you...
+                                {/* { file.name } uploaded!{"\n"}
+                                { prediction } faceshape detected! */}
+                                { result }
                             </div>
                         </div>
                         <div id="cancel-btn">
