@@ -1,5 +1,5 @@
 import styles from "./style";
-import { Billing, Business, CardDeal, Clients, CTA, Footer, Navbar, Stats, Testimonials, Hero } from "./components";
+import { Stats, Hero } from "./components";
 import FileUpload from "./components/FileUpload";
 
 const App = () => (
