@@ -1,11 +1,13 @@
 import "./FileUpload.css";
 import React, { useState } from 'react';
-import { saveAs } from 'file-saver';
+import axios from 'axios';
 
 
 const FileUpload = () => {
     const [status, setStatus] = useState(false);
     const [file, setFile] = useState();
+    const [upload, setUpload] = useState(false);
+    const [prediction, setPrediction] = useState("")
 
     
     const wrapper = document.querySelector(".wrapper");
@@ -24,49 +26,48 @@ const FileUpload = () => {
         setStatus(true);
     }
 
-    if (status) {
+    if (status && !prediction) {
         defaultBtn.addEventListener("change", function(){
             const file = this.files[0];
             setFile(file);
             if(file){
-                const reader = new FileReader();
-                reader.onload = function(){
-                    const result = reader.result;
-                    img.src = result;
-                    wrapper.classList.add("active");
-                }
-                reader.readAsDataURL(file);
+                // const reader = new FileReader();
+                // reader.onload = function(){
+                //     const result = reader.result;
+                //     img.src = result;
+                //     wrapper.classList.add("active");
+                // }
+                // reader.readAsDataURL(file);
 
-                predict(file)
-
-
+                predict(file);
+                setUpload(true);
                 // FileSaver.saveAs(imgFile, "/Users/joesurf/Downloads");
             }
         });
     }
 
-    const predict = (file) => {
-        console.log(file.name)
-        const requestOptions = {
-            method: 'POST',
-        };
-        fetch(`http://localhost:8000/infer/${file.name}`, requestOptions)
-            .then(response => response.json())
-            // .then(data => this.setState({ postId: data.id }));
+    const predict = async (file) => {
+        let user = {
+            Id: 78912,
+            Customer: "Jason Sweet",
+            Quantity: 1
+          };
+
+        try {
+            const response = await axios.post(`http://localhost:8000/infer/${file.name}/`, user);
+            console.log("Request successful!");
+            console.log(response.data)
+            setPrediction(response.data["prediction"])
+
+          } catch (error) {
+            if (error.response) {
+              console.log(error.reponse.status);
+            } else {
+              console.log(error.message);
+            }
+        }
     }
 
-    const download = (image) => {
-        var element = document.createElement("a");
-        var file = new Blob(
-          [
-            image
-          ],
-          { type: "image/*" }
-        );
-        element.href = URL.createObjectURL(file);
-        element.download = "image.jpg";
-        element.click();
-      };
 
     return (
         <div className="w-[100%] h-[100%] relative z-[5]">
@@ -84,13 +85,30 @@ const FileUpload = () => {
                             No file chosen, yet!
                         </div>
                     </div>
-                    <div id="cancel-btn">
-                        <i className="fas fa-times"></i>
-                    </div>
-                    <div className="file-name">
-                        File name here
-                    </div>
                 </div>
+                }
+                {
+                    upload && 
+                    <div className="wrapper">
+                        {/* <div className="image">
+                            <img src={file} alt="" />
+                        </div> */}
+                        <div className="content">
+                            <div className="icon">
+                                <i className="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div className="text">
+                                { prediction } faceshape detected!
+                                Finding earrings for you...
+                            </div>
+                        </div>
+                        <div id="cancel-btn">
+                            <i className="fas fa-times"></i>
+                        </div>
+                        <div className="file-name">
+                            File name here
+                        </div>
+                    </div>
                 }
                 <button onClick={defaultBtnActive} id="custom-btn">Choose a file</button>
                 <input id="default-btn" type="file" hidden />

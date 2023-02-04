@@ -17,8 +17,24 @@ from PIL import Image
 
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -60,7 +76,7 @@ async def pipeline(file):
         nodes=[
             visual_node,
             custom_node,
-            screen_node,
+            # screen_node,
             csv_writer_node,
             # visual_node,
             # yolo_node,
