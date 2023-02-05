@@ -28,15 +28,6 @@ const FileUpload = () => {
         setStatus(true);
     }
 
-    function goToExternalLink(){
-        const defaultBtn = document.querySelector("#default-btn");
-
-        defaultBtn.click();
-
-        console.log("GOING TO EXTERNAL LINK");
-
-    }
-
     if (status && !prediction) {
         defaultBtn.addEventListener("change", function(){
             const file = this.files[0];
@@ -158,7 +149,7 @@ const FileUpload = () => {
                     prediction &&
                     <div>
                         <a href={link} target="_blank" rel="noopener noreferrer">
-                            <button onClick={goToExternalLink} id="custom-btn">Go to recommended link</button>
+                            <button id="custom-btn">Go to recommended link</button>
                         </a>
                     </div>
                 }
