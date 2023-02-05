@@ -1,9 +1,6 @@
-# Faceshape Detection for Spectacle Recommendation
+# Faceshape Detection for Earrings Recommendation
 
-This project uses facial recognition to identify the face shape of users - heart, oblong, oval, round and square. The face shape is then used to determine the right fit of spectacles, as shown below.
-
-[Recommendation of glasses based on face shape]("./images/glass_frame_recommendation.jpg")
-
+This project uses facial recognition to identify the face shape of users - heart, oblong, oval, round and square. The face shape is then used to determine the right fit of earrings, as shown below.
 
 ## Setup
 ### Frontend
@@ -30,10 +27,7 @@ Upload a photo to the webpage and receive a classification result of what face s
     Model Creation(choosing which model we are using, if dh need ownself create)
     Model Training
     Model Inference
-- Recommend glasses frame (offer multiple options vs offer single option)
-
-Bonus:
-Recommend color
+- Recommend possible earrings
 
 
 ### Training Phase
@@ -46,11 +40,9 @@ Recommend color
 ### Inference Phase
 1. User uploads photo
 2. Photo gets pushed to ML pipeline
-3. ML model produces inference
-4. Inference used to recommend glass
-5. Display glasses
+3. ML model produces inference of face shape
+4. Inference used to recommend earrings
 
- 
 
 **Tech Stack**
 - Website (Host on AWS)
