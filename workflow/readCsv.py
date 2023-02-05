@@ -1,19 +1,22 @@
 import csv
 
 from os import walk
+import os
 
 def getResult():
 
-    filenames = next(walk("."), (None, None, []))[2]  # [] if no file
+    filenames = next(walk("./predictions"), (None, None, []))[2]  # [] if no file
+    print(filenames)
     file = ""
 
     for filename in filenames:
         if filename[:4] == "cast":
-            file = filename       
+            file = filename
+            break
 
     if file:
 
-        with open(file) as csv_file:
+        with open("predictions/" + file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
             result = []
@@ -22,7 +25,13 @@ def getResult():
                     result = row
 
             print(result)
+
+            for filename in filenames:
+                os.remove("predictions/" + filename)  
             return(result)
+
+ 
+    
     return None
             
 

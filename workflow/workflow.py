@@ -66,7 +66,7 @@ async def pipeline(file):
     screen_node = screen.Node()
     csv_writer_node = csv_writer.Node(   
         stats_to_track=["filename", "pred_label", "pred_score"],
-        file_path="casting_predictions.csv",
+        file_path="predictions/casting_predictions.csv",
         logging_interval=0
     )
 
