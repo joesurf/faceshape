@@ -7,7 +7,7 @@ from peekingduck.pipeline.nodes.output import csv_writer, screen
 from peekingduck.runner import Runner
 from src.custom_run.dabble import debug
 from src.custom_nodes.model import casting_classifier
-from getImageS3 import image_from_s3
+#from getImageS3 import image_from_s3
 from readCsv import getResult
 from checkImageData import checkImageIntegrity
 import asyncio
