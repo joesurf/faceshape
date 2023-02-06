@@ -1,10 +1,5 @@
 FaceShapeDataset
-face-shape/.env
-env
-models/
-train/
-validation/
-custom_project/weights/variables/
-custom_project2/weights/variables/
-custom_project3/weights/variables/
-workflow/weights/variables/
+frontend_react/.env
+training/custom_project_model1/weights/variables/
+training/custom_project_model2/weights/variables/
+backend/weights/variables/

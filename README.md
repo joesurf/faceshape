@@ -1,58 +1,54 @@
-# Faceshape Detection for Spectacle Recommendation
+# Faceshape Detection for Earrings Recommendation
 
-This project uses facial recognition to identify the face shape of users - heart, oblong, oval, round and square. The face shape is then used to determine the right fit of spectacles, as shown below.
-
-[Recommendation of glasses based on face shape]("./images/glass_frame_recommendation.jpg")
-
+This project uses facial recognition to identify the face shape of users - heart, oblong, oval, round and square. The face shape is then used to determine the right fit of earrings, as shown below.
 
 ## Setup
 ### Frontend
-1. Run npm i to install modules
-2. Run npm start
+1. Change directory into frontend vite
+2. Run `npm i` to install modules
+3. Run `npm run dev`
 
 ### Backend
-1. conda create --name <env> --file requirements.txt
-2. run the main.py file
+1. Run `conda create --name <env> --file requirements.txt`
+2. Change directory into backend
+3. Run `uvicorn backend:app --reload`
 
 ### Backend with PeekingDuck
 1. Run peekingduck init to start peekingduck
 2. Run peekingduck run to run peedkingduck pipeline
 
 
-## Usage
-Upload a photo to the webpage and receive a classification result of what face shape the user has.
+## User Stories
+Upload a photo to the webpage and receive a classification result of what earrings is most suitable for the user's face shape.
 
 
 ## Features
-- Take photo to upload
-- Build ml model to detect facial features (shape)
-    Data Preparation - Data augmentation
-    Model Creation(choosing which model we are using, if dh need ownself create)
-    Model Training
-    Model Inference
-- Recommend glasses frame (offer multiple options vs offer single option)
-
-Bonus:
-Recommend color
+- Image upload
+- Face shape prediction from upload
+    - Build ml model to detect facial features (shape)
+        - Data Preparation - Data augmentation
+        - Model Creation(choosing which model we are using, if dh need ownself create)
+        - Model Training
+        - Model Inference
+- Recommend type of earrings through external link
 
 
 ### Training Phase
 1. Load data from dataset
 2. Load model from models
-3. Train model on data
-4. Deploy on AWS Sagemaker
+3. Train model on data `python train_classifier.py`
+4. Use peekingduck pipeline
 
 
 ### Inference Phase
 1. User uploads photo
 2. Photo gets pushed to ML pipeline
 3. ML model produces inference
-4. Inference used to recommend glass
-5. Display glasses
+4. Inference used to recommend earrings
 
  
 
 **Tech Stack**
-- Website (Host on AWS)
-- Frontend - React (npm)
-- Backend - Python, Pytorch
+- Website (To be Hoseed on AWS)
+- Frontend - React/Vite (npm)
+- Backend - Python, Tensorflow
