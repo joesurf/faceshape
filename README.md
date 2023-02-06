@@ -43,12 +43,12 @@ Upload a photo to the webpage and receive a classification result of what earrin
 ### Inference Phase
 1. User uploads photo
 2. Photo gets pushed to ML pipeline
-3. ML model produces inference
+3. ML model produces inference of face shape
 4. Inference used to recommend earrings
 
- 
 
 **Tech Stack**
 - Website (To be Hoseed on AWS)
 - Frontend - React/Vite (npm)
 - Backend - Python, Tensorflow
+
