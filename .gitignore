@@ -2,4 +2,6 @@ FaceShapeDataset
 frontend_react/.env
 training/custom_project_model1/weights/variables/
 training/custom_project_model2/weights/variables/
+training/custom_project_model1/custom_data
+training/custom_project_model2/custom_data
 backend/weights/variables/
